@@ -1,0 +1,159 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  
+  /* Body and Container */
+  body {
+    font-family: Arial, sans-serif;
+    background-image: url('img/parallax-interior-header-cropped.svg');
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Team Header */
+  .team-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .team-header h1 {
+    font-size: 2.5rem;
+    color: rgb(37, 85, 37);
+  }
+  
+  .team-header p {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 10px;
+  }
+  
+  /* Team Grid */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Team Member Card */
+  .team-member {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .team-photo {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  
+  .team-member h3 {
+    margin: 15px 0 5px;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .team-member p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 15px;
+  }
+  /* Fullscreen Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9); /* Light overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  /* Spinner Style */
+  .spinner {
+    border: 6px solid #f3f3f3; /* Light grey */
+    border-top: 6px solid rgb(37, 85, 37);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+  }
+  
+  /* Spinner Animation */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Hide overflow of body while loading */
+  body.loading {
+    overflow: hidden;
+  }
+
+  #main-content
+  {
+      animation: fadeInUp 1.2s ease-in-out, slideIn 1.2s ease-in-out;
+  }
+  /* Fade-in effect */
+  @keyframes fadeInUp {
+      0% {
+          opacity: 0;
+          transform: translateY(30px);
+      }
+      100% {
+          opacity: 1;
+          transform: translateY(0);
+      }
+  }
+  
+  /* Subtle slide-in from left */
+  @keyframes slideIn {
+      0% {
+          transform: translateX(-20px);
+      }
+      100% {
+          transform: translateX(0);
+      }
+  }
+  .line
+  {
+    border: 1px solid #bcc1ca;
+    width: 100%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+
+  .footer-bottom {
+    text-align: center;
+    padding: 10px 0;
+    color: white;
+    font-family: poppin;
+    border-top: 1px solid rgb(37, 85, 37);
+    background-color: black;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+
+  

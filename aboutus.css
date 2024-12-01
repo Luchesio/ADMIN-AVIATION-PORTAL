@@ -1,0 +1,267 @@
+body{
+    background-image: url('img/parallax-interior-header-cropped.svg');
+}
+/* Fullscreen Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9); /* Light overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  /* Spinner Style */
+  .spinner {
+    border: 6px solid #f3f3f3; /* Light grey */
+    border-top: 6px solid rgb(37, 85, 37); /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+  }
+  
+  /* Spinner Animation */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Hide overflow of body while loading */
+  body.loading {
+    overflow: hidden;
+  }
+
+  .topleft
+  {
+    width: 116px;
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+  }
+  .topright
+  {
+    width: 130px;
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+  }
+  .line
+  {
+    border: 1px solid #bcc1ca;
+    width: 100%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+
+
+
+
+
+
+
+
+
+  a
+  {
+    text-decoration: none;
+  }
+
+  #main-content
+  {
+      animation: fadeInUp 1.2s ease-in-out, slideIn 1.2s ease-in-out;
+  }
+  /* Fade-in effect */
+  @keyframes fadeInUp {
+      0% {
+          opacity: 0;
+          transform: translateY(30px);
+      }
+      100% {
+          opacity: 1;
+          transform: translateY(0);
+      }
+  }
+  
+  /* Subtle slide-in from left */
+  @keyframes slideIn {
+      0% {
+          transform: translateX(-20px);
+      }
+      100% {
+          transform: translateX(0);
+      }
+  }
+
+h1{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 500;
+    color: rgb(37, 85, 37);
+    font-size: 3.6em;
+}
+.about
+{
+    color: grey;
+    font-size: 1.2em;
+     font-weight: 400;
+}
+.vision
+{
+    color: white;
+    font-size: 1em;
+     font-weight: 400;
+
+}
+h3{
+    color: rgb(37, 85, 37);
+}
+
+
+
+/* General styles for animation */
+.slide-in-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.8s ease-out;
+}
+
+.slide-in-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.8s ease-out;
+}
+
+.slide-in-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+.informed
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 4em;
+    font-weight: 500;
+    
+}
+.teamcontainer
+{
+  background-color: black;
+  height: 300px;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 80px;
+  
+}
+.heading
+{
+  color: white;
+}
+.teambutton
+{
+  height: 60px;
+  width: 150px;
+  background-color: white;
+  color: rgb(37, 85, 37);
+  font-weight: 600;
+  border: 1px solid white;
+  border-radius: 8px;
+
+}
+.teambutton2
+{
+  height: 60px;
+  width: 200px;
+  background-color: white;
+  color: rgb(37, 85, 37);
+  font-weight: 600;
+  border: 1px solid white;
+  border-radius: 8px;
+}
+footer{
+  background-color: #F8F9FA;
+  height: 280px ;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+button :hover
+{
+  background-color: rgb(150, 218, 150);
+}
+.subscribe
+{
+  height: 36px;
+  width: 91px;
+  background-color: #636AE8;
+  color: white;
+  border: 1px solid #636AE8;
+  border-radius: 18px;
+}
+.footheader
+{
+  font-size: 20px;
+  font-weight: 700 ;
+  line-height: 30px ;
+  color: #171A1F;
+}
+.foottext
+{
+  font-size: 14px;
+  font-weight: 400px ;
+  line-height: 22px ;
+  color: #171A1F;
+}
+a
+{
+  text-decoration: none;
+}
+.socialcontainer
+{
+  width: 88px;
+  height: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.social{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+
+}
+.end{
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 70px;
+  align-self: flex-end;
+}
+.endtext
+{
+  font-weight: 400;
+  color: #9095A0;
+  line-height: 22px ;
+  font-size: 14px;
+}
+.footer-bottom {
+    text-align: center;
+    padding: 10px 0;
+    color: white;
+    font-family: poppin;
+    border-top: 1px solid rgb(37, 85, 37);
+    background-color: black;
+    margin-top: 20px;
+    font-size: 14px;
+  }
