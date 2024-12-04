@@ -12,8 +12,9 @@ foreach ($filteredFlights as $flight) {
     $responseData[] = [
         'flightNumber' => $flight['flight']['iataNumber'],
         'airline' => $flight['airline']['name'],
+        'departureAirport'=>$flight['departure']['iataCode'],
         'scheduledDeparture' => $flight['departure']['scheduledTime'],  // Departure scheduled time
-        'departureTerminal' => $flight['departure']['terminal'],
+        'arrivalAirport'=>$flight['arrival']['iataCode'],
         'arrivalScheduledTime' => $flight['arrival']['scheduledTime'],  // Arrival scheduled time
         'status' => $flight['status']
     ];
