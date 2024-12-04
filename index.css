@@ -1,0 +1,36 @@
+.flights{
+	margin: 1rem 3rem;
+	max-height: 700px;
+	overflow: scroll;
+}
+
+.flight{
+	display: grid;
+	gap: 1rem;
+	color: #4E4E4E;
+	padding: 1rem;
+	border-top: 2px solid #D9D9D9;
+}
+
+.flight__header{
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	padding: 1rem;
+	background: #ECECEC;
+	font-size: 20px;
+	position: relative;
+}
+.flight__main{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: #ECECEC;
+	padding: 1rem;
+	border-left: 30px solid #FF7100;
+	background: #FFF8E1;
+}
+.flight__main .info{
+	display: grid;
+	gap: 8px;
+}

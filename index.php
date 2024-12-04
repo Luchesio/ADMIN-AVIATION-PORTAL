@@ -10,14 +10,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Sofadi+One&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="index.css" />
     <script src="language.js" defer></script>
     <title>Document</title>
 </head>
 <body>
-        <div id="loading-screen">
+     <!--   <div id="loading-screen">
       <div class="spinner"></div>
-       </div>
-       <div id="main-content" style="display: none">
+       </div> 
+	   <div id="main-content" style="display: none">
+-->
+       <div id="main-content">
         <nav>
         <a href="index.php" class="navlink"><i class="fas fa-user" style=" margin-right:17px;" ></i><span id="dashboard">Dashboard</span></a>
         <a href="flights.php" class="navlink" ><i class="fas fa-plane" style=" margin-right:17px;" ></i><span id="navFlights">Flights</span></a>
@@ -58,6 +61,47 @@
         <p class="num">8500+</p>
         </div></div>
     </section>
+
+<!-- flight -->
+	<section class="flights">
+		<article class="flight">
+			<div class="flight__header">
+				<p>
+					<i class="fa-solid fa-plane" id="col" style="color:#727171; position:absolute; left:-30px; top: 1px;"></i>
+				</p>
+				<div style="display:flex; gap:1rem; align-items:center;">
+					<p>Prague LKPR</p>
+					<img src="arrow-right-long.svg" style="height:40px; width:200px"/>
+					<p>Madrid MAD</p>
+				</div>
+				<p style="margin-left: auto">Air peace</p>
+			</div>
+			<div class="flight__main">
+				<div class="info">
+					<p>Fri, 17 May 2022</p>
+					<p>Prague</p>
+					<p style="color:#727171">LKPR</p>
+					<time style="font-size:24px; font-weight: 700; color:black;">18:10</time>
+				</div>
+				<div style="text-align:center; display:grid">
+					<time>18:10</time>
+					<img src="arrow-right-long.svg" style="height:50px; width:50px"/>
+				</div>
+				<div class="info">
+					<p>Fri, 17 May 2022</p>
+					<p>Madrid</p>
+					<p style="color:#727171">MAD</p>
+					<time style="font-size:24px; font-weight: 700; color:black;">18:10</time>
+				</div>
+				<div style="align-self:end">
+					<p style="color:#FF7100">Price starts from 50</p>
+					<p>Operated by Air peace</p>
+				</div>
+			</div>
+		</article>
+	</section>
+<!-- flight -->
+
     <!-- <section class="part3">
         <h1 class="part3head" id="idFeatures">Key Features</h1>
         <div class="part3text"  ><i class="fa-solid fa-circle-check" id="che"></i>  <p id="idReal"> Real-time Flight Management </p></div>
