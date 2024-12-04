@@ -6,7 +6,7 @@ use \Mailjet\Resources;
 $hostname = 'localhost';
 $dbname = 'aviation_admin';
 $username = 'root';
-$password = 'sope2000';
+$password = 'passwprd-here';
 
 // Mailjet API credentials
 $mailApiKey = "03b3b0a70337c332b34efb623164b39f";
