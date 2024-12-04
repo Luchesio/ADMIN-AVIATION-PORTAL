@@ -63,43 +63,9 @@
     </section>
 
 <!-- flight -->
-	<section class="flights">
-		<article class="flight">
-			<div class="flight__header">
-				<p>
-					<i class="fa-solid fa-plane" id="col" style="color:#727171; position:absolute; left:-30px; top: 1px;"></i>
-				</p>
-				<div style="display:flex; gap:1rem; align-items:center;">
-					<p>Prague LKPR</p>
-					<img src="arrow-right-long.svg" style="height:40px; width:200px"/>
-					<p>Madrid MAD</p>
-				</div>
-				<p style="margin-left: auto">Air peace</p>
-			</div>
-			<div class="flight__main">
-				<div class="info">
-					<p>Fri, 17 May 2022</p>
-					<p>Prague</p>
-					<p style="color:#727171">LKPR</p>
-					<time style="font-size:24px; font-weight: 700; color:black;">18:10</time>
-				</div>
-				<div style="text-align:center; display:grid">
-					<time>18:10</time>
-					<img src="arrow-right-long.svg" style="height:50px; width:50px"/>
-				</div>
-				<div class="info">
-					<p>Fri, 17 May 2022</p>
-					<p>Madrid</p>
-					<p style="color:#727171">MAD</p>
-					<time style="font-size:24px; font-weight: 700; color:black;">18:10</time>
-				</div>
-				<div style="align-self:end">
-					<p style="color:#FF7100">Price starts from 50</p>
-					<p>Operated by Air peace</p>
-				</div>
-			</div>
-		</article>
-	</section>
+<section class="flights" name="flights">
+  <!-- Flights will be dynamically added here by JavaScript -->
+</section>
 <!-- flight -->
 
     <!-- <section class="part3">

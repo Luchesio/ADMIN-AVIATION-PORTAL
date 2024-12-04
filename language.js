@@ -1,5 +1,8 @@
 // language.js
 
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const savedLanguage = localStorage.getItem("language") || "en";
   
@@ -220,4 +223,5 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
+  
   

@@ -1,31 +1,55 @@
 <?php
 
-//How to get packages:
-//Install Composer
-//Then use this commands in terminal;
-// composer require mailjet/mailjet-apiv3-php
+// How to get packages:
+// Install Composer
+// Then use these commands in the terminal;
+// composer require mailjet/mailjet-apiv3-php 
 
-//the dtatabase:
-//name:aviation_admin
-//table: passengers
-//content: name varchar(45)  email varchar(45) flight varchar(45) status varchar(45) 
+// The database:
+// name:aviation_admin
+// table: passengers
+// content: name varchar(45) email varchar(45) flight varchar(45) status varchar(45) 
+
+// CREATE TABLE api_cache (
+//     id INT AUTO_INCREMENT PRIMARY KEY,
+//     name VARCHAR(255) NOT NULL,
+//     data TEXT NOT NULL,
+//     timestamp DATETIME NOT NULL
+// );
 
 require 'vendor/autoload.php';
 
-// Database and API credentials
 $hostname = 'localhost';
 $dbname = 'aviation_admin';
-$username = 'put-your-db-username';
-$password = 'put-your-db-password';
+$username = 'root';
+$password = 'sope2000';
 $apiKey = "4d5dc6-13d7c8";
 $apiUrl = "https://aviation-edge.com/v2/public/timetable?key={$apiKey}&iataCode=LOS&type=departure";
 
-// Fetch flight data from the API
-$response = file_get_contents($apiUrl);
-if ($response === FALSE) {
-    die("Error occurred while fetching data from the API.");
+// Define the cache file path and cache expiry time (in seconds)
+$cacheFile = 'cache/flights_cache.json';
+$cacheExpiry = 600; // 10 mins
+
+// Ensure the cache directory exists
+if (!is_dir('cache')) {
+    mkdir('cache', 0777, true); // Create the directory with full permissions
 }
-$flights = json_decode($response, true);
+
+// Check if the cache file exists and is still valid
+if (file_exists($cacheFile) && (filemtime($cacheFile) + $cacheExpiry > time())) {
+    // Use the cached data
+    $flights = json_decode(file_get_contents($cacheFile), true);
+} else {
+    // Fetch fresh data from the API
+    $response = file_get_contents($apiUrl);
+    if ($response === FALSE) {
+        die("Error occurred while fetching data from the API.");
+    }
+    $flights = json_decode($response, true);
+
+    // Cache the fresh data
+    file_put_contents($cacheFile, json_encode($flights));
+}
 
 // Filter Air Peace flights
 $filteredFlights = array_filter($flights, function ($flight) {
