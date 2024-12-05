@@ -8,7 +8,7 @@
 // The database:
 // name:aviation_admin
 // table: passengers
-// content: name varchar(45) email varchar(45) flight varchar(45) status varchar(45) 
+// content: name id autoincrement pk varchar(45) email varchar(45) flight varchar(45) status varchar(45) 
 
 // CREATE TABLE api_cache (
 //     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -21,8 +21,8 @@ require 'vendor/autoload.php';
 
 $hostname = 'localhost';
 $dbname = 'aviation_admin';
-$username = 'root';
-$password = 'sope2000';
+$username = 'your-username-here';
+$password = 'your-password-here';
 $apiKey = "4d5dc6-13d7c8";
 $apiUrl = "https://aviation-edge.com/v2/public/timetable?key={$apiKey}&iataCode=LOS&type=departure";
 
@@ -63,7 +63,7 @@ if ($con->errno) {
 }
 
 // Fetch passenger data from the database
-$query = "SELECT name, email, flight FROM passengers";
+$query = "SELECT name, email, flight, id FROM passengers";
 $result = $con->query($query);
 $passengerData = [];
 if ($result->num_rows > 0) {
@@ -71,7 +71,8 @@ if ($result->num_rows > 0) {
         $passengerData[] = [
             'name' => $passenger['name'],
             'email' => $passenger['email'],
-            'flight' => $passenger['flight']
+            'flight' => $passenger['flight'],
+            'id' => $passenger['id']
         ];
     }
 } else {

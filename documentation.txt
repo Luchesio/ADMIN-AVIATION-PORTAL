@@ -1,0 +1,112 @@
+Kindly Read To The End Before Striking Your Keyboard!!!!
+
+Project Documentation
+Overview
+This project involves handling flight information, passenger notifications, and data management for a fictional airline system. The backend is implemented in PHP, with a MySQL database for storing passenger information. The project includes several components:
+
+Make sure you have composer installed on your computer
+
+Data Fetching & Caching (data.php)
+Flight Data API Response (base.php)
+Passenger Notification System (notify.php)
+These components interact with each other, fetching flight information, filtering it, and sending notifications to passengers about flight statuses such as delays or cancellations.
+
+Files & Their Functions
+1. data.php
+Purpose:
+data.php is responsible for fetching flight information from an external API (Aviation Edge), caching the data, and returning the filtered data for use in the other files. It connects to a MySQL database to retrieve passenger data.
+
+Key Features:
+- Caching Flight Data: Data is cached for 10 minutes to reduce API calls and improve performance. It stores the fetched data in a file (cache/flights_cache.json).
+- Fetching Passenger Data: Queries the passengers table in MySQL to get details about passengers.
+- Filtering Flights: Filters flight data to only include "Air Peace" flights.
+API Integration: Uses the Aviation Edge API to fetch flight timetable data.
+Database:
+Database Name: aviation_admin
+Table Name: passengers
+Columns: name (varchar), email (varchar), flight (varchar), status (varchar), id (auto increment primary key)
+Commands:
+To set up and run data.php, you need:
+
+run this in terminal;
+
+composer require mailjet/mailjet-apiv3-php
+
+Ensure the database and the api_cache table are created as described.
+
+2. base.php
+Purpose:
+base.php fetches filtered flight data (specifically for "Air Peace" flights) and prepares it for front-end use. The filtered flight data is returned as a JSON response for consumption by the frontend application.
+
+Key Features:
+Fetching Filtered Flight Data: It filters only Air Peace flights from the data.php file.
+Preparing Data for Front-End: The flight details are formatted and returned as JSON, which can be consumed by the frontend application.
+How it works:
+The base.php file directly includes data.php, which returns the filtered flight and passenger data.
+It then extracts flight details and formats them into a response suitable for front-end display.
+3. notify.php
+Purpose:
+notify.php handles sending notifications (via email) to passengers based on their flight status. It continuously checks for passengers who have been marked as 'inactive' or 'delay' in the database, compares their flight status with the API, and sends notifications accordingly.
+
+Key Features:
+Email Notification: Sends email notifications to passengers using the Mailjet API.
+Status Updates: Updates the passenger's status in the database based on flight status (e.g., inactive to active, inactive to delay).
+Continuous Check: The script runs in a loop, checking passenger statuses every 20 seconds.
+Handling Different Flight Statuses: Sends different types of notifications depending on the flight's status (e.g., flight scheduled, cancelled).
+Mailjet Integration:
+API Credentials: The script requires valid Mailjet API credentials to send emails.
+Mail Content: Customizes the email body to include relevant flight details and status updates.
+How the Files Interrelate
+data.php: Provides the flight data and passenger data. It filters out only "Air Peace" flights, caches the data, and allows other scripts to access this data.
+
+base.php: Fetches the filtered flight data from data.php and returns it in a format suitable for the frontend.
+
+notify.php: Continuously checks for passengers whose flight statuses require notifications. It uses data from data.php and sends emails based on the filtered flight status.
+
+Data Flow:
+Initial Fetch: data.php fetches and caches the flight data from the Aviation Edge API.
+Filtered Flight Data: base.php uses data.php to get the filtered flight data and sends it to the frontend.
+Passenger Notification: notify.php uses both flight and passenger data from data.php, checks flight status, and sends email notifications accordingly.
+Commands to Run After Cloning the Project
+Install Composer Dependencies: If you don't have Composer installed, first install it from https://getcomposer.org/. Then, in the project directory, run:
+
+bash
+Copy code
+composer install
+Set Up the Database: Create a MySQL database named aviation_admin and create the necessary tables. Run the following SQL commands:
+
+sql
+Copy code
+CREATE DATABASE aviation_admin;
+
+CREATE TABLE passengers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(45),
+    email VARCHAR(45),
+    flight VARCHAR(45),
+    status VARCHAR(45)
+);
+
+CREATE TABLE api_cache (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    data TEXT NOT NULL,
+    timestamp DATETIME NOT NULL
+);
+Configure Database and API Keys:
+
+Update the $hostname, $dbname, $username, and $password variables in data.php and notify.php to match your MySQL database setup.
+Set the correct API keys for the Mailjet and Aviation Edge APIs in notify.php and data.php.
+Run the Notify Script: To start sending notifications, run the notify.php script:
+
+bash
+Copy code
+php notify.php
+This will check the database for inactive or delayed passengers and send them email notifications based on the flight status.
+
+Access Flight Data via Frontend: To view the filtered flight data, you can access the base.php file. This will return a JSON response with the relevant flight data for the frontend.
+
+Conclusion
+This project integrates PHP, MySQL, and the Mailjet API to provide real-time flight status updates and passenger notifications. The components are modular and interrelated, with data.php handling data fetching and caching, base.php preparing data for the frontend, and notify.php managing passenger notifications.
+
+Ensure all dependencies are installed, and the database is correctly configured before running the scripts.

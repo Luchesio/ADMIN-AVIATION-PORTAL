@@ -115,6 +115,7 @@ fetch('base.php')
               <p style="color:#FF7100">Price starts from 50</p> <!-- Replace this with a dynamic price if available -->
               <p>Operated by ${flight.airline}</p>
             </div>
+           
           </div>
         `;
         
@@ -125,3 +126,17 @@ fetch('base.php')
 .catch(error => {
     console.error('Error fetching flight data:', error);
 });
+
+let alive = true;
+
+// Run the fetch request every 5 minutes (300,000 milliseconds)
+setInterval(() => {
+    if (alive) {
+        fetch('notify.php')
+            .then(response => response.json())  // Parse the JSON response
+            .then(data => {
+                console.log(data); // Log the data or handle it as needed
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+}, 300000);  // 300,000 milliseconds = 5 minutes

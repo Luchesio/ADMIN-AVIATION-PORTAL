@@ -1,12 +1,18 @@
 <?php
+ob_start();
+
+// Suppress deprecation warnings (or handle them as needed)
+error_reporting(E_ALL & ~E_DEPRECATED);
+
+// Mailjet and other code...
 require 'vendor/autoload.php'; // Mailjet API autoloader
 use \Mailjet\Resources;
 
 // Database credentials
 $hostname = 'localhost';
 $dbname = 'aviation_admin';
-$username = 'root';
-$password = 'passwprd-here';
+$username = 'your-username-here';
+$password = 'your-password-here';
 
 // Mailjet API credentials
 $mailApiKey = "03b3b0a70337c332b34efb623164b39f";
@@ -21,6 +27,9 @@ if ($con->errno) {
     die("Connection error: " . $con->error);
 }
 
+// Send the JSON response header early, before any output
+header('Content-Type: application/json');
+
 // Get the passenger data and filtered flights
 $data = require 'data.php'; // Assuming this file returns the necessary data
 $passengerData = $data['passengerData'];
@@ -34,50 +43,60 @@ while (true) {
     if ($result->num_rows > 0) {
         while ($passenger = $result->fetch_assoc()) {
             $foundFlight = false;
-
+            
+            $randomNumberInRange = rand(1, 100);
+            
             // Look for the corresponding flight in the API data
             foreach ($filteredFlights as $flight) {
                 if ($flight['flight']['iataNumber'] == $passenger['flight']) {
                     $foundFlight = true;
                     $flightStatus = $flight['status'];
                     $scheduledDeparture = new DateTime($flight['departure']['scheduledTime']);
-                    $currentTime = new DateTime();
-                    $timeDifference = $scheduledDeparture->getTimestamp() - $currentTime->getTimestamp();
+                    //$currentTime = new DateTime();
+                    //$timeDifference = $scheduledDeparture->getTimestamp() - $currentTime->getTimestamp();
+                    //&& $timeDifference <= 600 && $timeDifference > 0
+
 
                     // Check if the flight's status is "unknown"
-                    if ($flightStatus == 'unknown' && $timeDifference <= 7200 && $timeDifference > 0) {
-                        // Send email 2 hours before scheduled departure
+                    if ( ($flightStatus == 'unknown' || $flightStatus == 'scheduled' || $flightStatus == 'active') && ($passenger['status'] == 'inactive'||$passenger['status'] == 'delay')) {
                         sendNotification($passenger, $flight, $mailjet);
-                        updatePassengerStatus($passenger['id'], $con);
+                        updatePassengerStatus($passenger['id'], $con); // Update status to 'active'
                         removePassenger($passenger['id'], $con);  // Remove from DB after sending 2-hour reminder
                     }
 
                     // Handle flight status "cancelled"
-                    if ($flightStatus == 'cancelled') {
+                    if ($passenger['status'] == 'inactive' && $flightStatus == 'cancelled') {
                         sendCancellationNotification($passenger, $flight, $mailjet);
                         updatePassengerStatusToDelay($passenger['id'], $con);  // Change status to 'delay'
                     }
 
                     // Handle flight status "active" (flight is airborne)
-                    if ($flightStatus == 'active') {
+                     if ($passenger['status'] == 'active') {
                         removePassenger($passenger['id'], $con); // Remove from DB if flight is active
-                    }
+                     }
 
                     break;
                 }
             }
 
+            // Return the random number as a JSON response
+            $responseRandom = [];
+            $responseRandom[] = [
+                'randomnumber' => $randomNumberInRange
+            ];
+            echo json_encode($responseRandom); // Send this only after header is set
+            
             // If no matching flight was found, handle that case as well
             if (!$foundFlight) {
-                // If no matching flight found, you may choose to leave them in the database or handle differently.
+                // Handle the case where no matching flight is found
             }
         }
     } else {
-        echo "No passengers found in the database.<br>";
+        echo json_encode(['message' => 'No passengers found in the database.']);
     }
 
     // Sleep for 5 minutes before checking again
-    sleep(300);  // 300 seconds = 5 minutes
+    sleep(20);  // 300 seconds = 5 minutes
 }
 
 // Function to send notification to the passenger
@@ -113,10 +132,13 @@ function sendNotification($passenger, $flight, $mailjet) {
 
     $response = $mailjet->post(Resources::$Email, ['body' => $body]);
 
+    // Log the response for debugging
     if ($response->success()) {
         echo "Reminder notification sent to {$passenger['email']}<br>";
     } else {
+        // Log Mailjet error response to diagnose
         echo "Failed to send reminder notification to {$passenger['email']}<br>";
+        echo "Mailjet API Error: " . json_encode($response->getData()) . "<br>";
     }
 }
 
@@ -176,23 +198,6 @@ function removePassenger($passengerId, $con) {
     $con->query($deleteQuery);
 }
 
-
-// // Trigger the PHP script when the page is loaded or on a specific event
-// window.onload = function() {
-//     // AJAX request to start the PHP script
-//     fetch('/path/to/notify.php', {
-//         method: 'GET',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//     })
-//     .then(response => response.text())
-//     .then(data => {
-//         console.log('PHP script triggered successfully');
-//     })
-//     .catch(error => {
-//         console.error('Error:', error);
-//     });
-// };
-
+// End output buffering and flush
+ob_end_flush();
 ?>
